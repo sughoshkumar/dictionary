@@ -14,7 +14,7 @@ module Decoder
       total_combinations = nil
       data.each_char do |n|
         codes = hash_data[n.to_i]
-        puts "codes=#{codes}"
+        raise "Numbers will never contain a 0 or 1" if codes.nil?
         if total_combinations
           total_combinations = total_combinations.product(codes)
         else
@@ -44,6 +44,7 @@ module Decoder
           total_combinations = first_words.product(last_words)
           all_words += total_combinations
         end
+        all_words.select!{|e| !full_words.include?(e[0]+e[1]) }
       end
       all_words
     end
